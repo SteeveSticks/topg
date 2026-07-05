@@ -1,51 +1,16 @@
-# Add MySQL & MongoDB Support
+# Fix the navbar responsiveness inconsistency
 
 ## Context
-Symplax supports PostgreSQL and Redis. Add MySQL and MongoDB to complete relational, document, and cache coverage.
-
+Currently, the navbar displays correctly on large and medium pages, but it is misaligned on small pages.
 ---
 
-## Tasks
+Once the viewport reaches about 584 × 552 px, the layout becomes inconsistent. It should scale to fit the mobile view, but the navigation bar does not shrink to match a typical phone size, for example, an iPhone 14 with a screen of 392 × 852 px. Consequently, the responsive design does not accommodate that phone size.
 
-### 1. Register engines in provisioning config
-File: `database.route.ts`
+Try reducing the navbar size at that viewport so it fits, bringing the `Add a wishlist` button and dropdown closer to the `Birthday wish` text.
 
-| Engine  | Port  | Version |
-|---------|-------|---------|
-| MySQL   | 3306  | 8       |
-| MongoDB | 27017 | 7       |
+Do not touch the layout of the large screen.
 
-### 2. Connection string builder
-Add cases for:
-- MySQL → `mysql://username:password@host:port/dbname`
-- MongoDB → `mongodb://username:password@host:port/dbname`
-
-### 3. Engine validation error
-Update the invalid-engine error message to include `mysql` and `mongodb` alongside existing options.
-
-### 4. Docker provisioning (agent side)
-- MySQL → pull image `mysql:8`
-- MongoDB → pull image `mongo:7`, append `--auth` flag to enforce password access
-
-### 5. Frontend engine selector
-File: `C:\Users\DELL\Documents\projects\symplax\app\dashboard\databases\page.tsx`
-
-Add MySQL and MongoDB cards to the Create Database sheet. Match the existing PostgreSQL and Redis dropdown structure.
-
-### 6. Empty state hint text
-Update the text that reads *"PostgreSQL or Redis"* to include all four engines.
-
-### Rules
-- Do not change the front-end UI. Any existing updates, just add them to it. 
-- For now, connect MongoDB and MySQL frontend UI to the postgreSQL own, not the Redis.
----
-
-## Acceptance Criteria
-
-- [ ] `mysql` and `mongodb` appear in the provisioning config with correct ports and versions
-- [ ] Passing an unsupported engine returns an error listing all four engines
-- [ ] Provisioning a MySQL database pulls `mysql:8` and starts successfully
-- [ ] Provisioning a MongoDB database pulls `mongo:7` and starts with `--auth` enabled — password login required, unauthenticated access rejected
-- [ ] Create Database sheet shows MySQL and MongoDB cards with icon and description, consistent with PostgreSQL and Redis cards
-- [ ] Empty state hint text references all four engines
-- [ ] Ensure there is no lint or typescript error.
+## Checks when done
+- Make sure the navbar fits responsive at a viewport of 393 x 852px the iphone 12 viewport
+- Confirm the navbar for mobile is responsive on the live site to the size.
+- Check for any lint errors.

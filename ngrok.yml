@@ -1,0 +1,16 @@
+endpoints:
+  - name: cli-quickstart
+    url: localhost:3000
+    traffic_policy:
+      on_http_request:
+        - actions:
+            - type: oauth
+              config:
+                provider: google
+        - expressions:
+            - "!actions.ngrok.oauth.identity.email.endsWith('@acme.com')"
+          actions:
+            - type: deny
+    upstream:
+      url: 3000
+      protocol: http1

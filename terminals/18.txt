@@ -1,0 +1,7 @@
+---
+pid: 29548
+cwd: "C:\Users\DELL\Documents\projects\lazy-birthday\my-app"
+command: "cd \"C:\\Users\\DELL\\Documents\\projects\\lazy-birthday\\my-app\" && npx tsc --noEmit && npx eslint components/site/guestbook-hero.tsx components/site/guestbook-entry.tsx components/site/guestbook-spread.tsx components/site/load-older-button.tsx app/guestbook/page.tsx 2>&1"
+started_at: 2026-07-05T19:45:49.332Z
+running_for_ms: 1524995  
+---

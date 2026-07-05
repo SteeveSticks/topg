@@ -1,0 +1,32 @@
+---
+pid: 16872
+cwd: "C:\Users\DELL\Documents\projects\lazy-birthday\my-app"
+command: "npm run build"
+started_at: 2026-07-05T11:34:29.282Z
+running_for_ms: 1039982  
+---
+
+> my-app@0.1.0 build
+> next build
+
+▲ Next.js 16.2.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 33.4s
+  Running TypeScript ...
+  Finished TypeScript in 45s ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/4) ...
+  Generating static pages using 5 workers (1/4) 
+  Generating static pages using 5 workers (2/4) 
+  Generating static pages using 5 workers (3/4) 
+✓ Generating static pages using 5 workers (4/4) in 3.0s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+

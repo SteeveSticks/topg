@@ -1,0 +1,11 @@
+---
+pid: 19828
+cwd: "C:\Users\DELL\Documents\projects\lazy-birthday\my-app"
+command: "cd \"C:\\Users\\DELL\\Documents\\projects\\lazy-birthday\\my-app\" && npm run lint 2>&1"
+started_at: 2026-07-05T18:41:41.370Z
+running_for_ms: 5370005  
+---
+
+> my-app@0.1.0 lint
+> eslint
+

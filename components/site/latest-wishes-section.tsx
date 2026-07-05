@@ -5,7 +5,7 @@ import Image from "next/image";
 export function LatestWishesSection() {
   return (
     <main>
-      <section className="relative px-6 pb-0 -mt-20">
+      {/* <section className="relative px-6 pb-0 -mt-20">
         <div className="relative mx-auto flex max-w-6xl items-center justify-center">
           <div className="relative inline-flex -rotate-94">
             <Image
@@ -25,7 +25,7 @@ export function LatestWishesSection() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
       <ScrollWishesGallery />
     </main>
   );

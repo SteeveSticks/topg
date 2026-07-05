@@ -45,45 +45,54 @@ export function CountdownBlock({ targetDate }: CountdownBlockProps) {
   }, [targetDate]);
 
   return (
-    <div className="inline-flex flex-wrap items-center justify-center gap-4 rounded-sm border border-surface-border bg-base px-2 py-2 shadow-sm sm:gap-6 sm:px-8">
-      <div className="flex min-w-20 flex-col items-center gap-1">
-        <span className="text-3xl font-bold tabular-nums text-brand">
+    <div className="grid w-full max-w-sm grid-cols-4 items-center gap-1 rounded-sm border border-surface-border bg-base px-3 py-2 shadow-sm sm:inline-flex sm:w-auto sm:max-w-none sm:flex-wrap sm:justify-center sm:gap-6 sm:px-8">
+      <div className="flex min-w-0 flex-col items-center gap-0.5 sm:min-w-20 sm:gap-1">
+        <span className="text-2xl font-bold tabular-nums text-brand sm:text-3xl">
           {formatUnit(remaining.days)}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-copy-muted sm:text-xs">
+        <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-copy-muted sm:text-xs sm:tracking-[0.2em]">
           Days
         </span>
       </div>
 
-      <span className="size-1.5 rounded-full bg-brand" aria-hidden="true" />
+      <span
+        className="hidden size-1.5 shrink-0 rounded-full bg-brand sm:block"
+        aria-hidden="true"
+      />
 
-      <div className="flex min-w-20 flex-col items-center gap-1">
-        <span className="text-3xl font-bold tabular-nums text-brand">
+      <div className="flex min-w-0 flex-col items-center gap-0.5 sm:min-w-20 sm:gap-1">
+        <span className="text-2xl font-bold tabular-nums text-brand sm:text-3xl">
           {formatUnit(remaining.hours)}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-copy-muted sm:text-xs">
+        <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-copy-muted sm:text-xs sm:tracking-[0.2em]">
           Hours
         </span>
       </div>
 
-      <span className="size-1.5 rounded-full bg-brand" aria-hidden="true" />
+      <span
+        className="hidden size-1.5 shrink-0 rounded-full bg-brand sm:block"
+        aria-hidden="true"
+      />
 
-      <div className="flex min-w-20 flex-col items-center gap-1">
-        <span className="text-3xl font-bold tabular-nums text-brand">
+      <div className="flex min-w-0 flex-col items-center gap-0.5 sm:min-w-20 sm:gap-1">
+        <span className="text-2xl font-bold tabular-nums text-brand sm:text-3xl">
           {formatUnit(remaining.minutes)}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-copy-muted sm:text-xs">
+        <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-copy-muted sm:text-xs sm:tracking-[0.2em]">
           Minutes
         </span>
       </div>
 
-      <span className="size-1.5 rounded-full bg-brand" aria-hidden="true" />
+      <span
+        className="hidden size-1.5 shrink-0 rounded-full bg-brand sm:block"
+        aria-hidden="true"
+      />
 
-      <div className="flex min-w-20 flex-col items-center gap-1">
-        <span className="text-3xl font-bold tabular-nums text-brand">
+      <div className="flex min-w-0 flex-col items-center gap-0.5 sm:min-w-20 sm:gap-1">
+        <span className="text-2xl font-bold tabular-nums text-brand sm:text-3xl">
           {formatUnit(remaining.seconds)}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-copy-muted sm:text-xs">
+        <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-copy-muted sm:text-xs sm:tracking-[0.2em]">
           Seconds
         </span>
       </div>

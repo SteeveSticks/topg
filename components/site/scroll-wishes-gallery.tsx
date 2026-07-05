@@ -122,6 +122,14 @@ const slides: GallerySlide[] = [
   },
 ];
 
+function getCenteredMobilePosition(zIndex: string) {
+  if (zIndex === "z-10") {
+    return "top-8 left-1/2 w-[68%] -translate-x-[58%]";
+  }
+
+  return "bottom-10 left-1/2 w-[68%] -translate-x-[32%]";
+}
+
 function ScrollableImageCard({
   src,
   alt,
@@ -129,9 +137,14 @@ function ScrollableImageCard({
   position,
   zIndex,
   hatSide,
-}: GalleryImage) {
+  centered = false,
+}: GalleryImage & { centered?: boolean }) {
+  const resolvedPosition = centered
+    ? getCenteredMobilePosition(zIndex)
+    : position;
+
   return (
-    <div className={`absolute ${position} ${zIndex}`}>
+    <div className={`absolute ${resolvedPosition} ${zIndex}`}>
       <div className={`relative ${rotation}`}>
         <div className="overflow-hidden rounded-sm border border-surface-border bg-surface shadow-lg aspect-[2/3] w-full">
           <Image
@@ -155,38 +168,38 @@ function ScrollableImageCard({
 
 function SlideText({ slide }: { slide: GallerySlide }) {
   return (
-    <div className="flex min-h-[70vh] flex-col justify-center py-16 md:py-24">
-      <p className="mb-2 text-2xl font-medium text-copy-faint">
+    <div className="flex flex-col justify-start py-10 md:min-h-[70vh] md:justify-center md:py-24">
+      <p className="mb-1.5 text-lg font-medium text-copy-faint md:mb-2 md:text-2xl">
         {slide.eyebrow}
       </p>
-      <p className="mb-8 max-w-md text-sm leading-relaxed text-copy-muted">
+      <p className="mb-6 max-w-full text-sm leading-relaxed text-copy-muted md:mb-8 md:max-w-md">
         {slide.subtitle}
       </p>
 
-      <h3 className="mb-4 text-3xl font-bold text-copy-primary md:text-4xl">
+      <h3 className="mb-3 text-2xl font-bold leading-tight text-copy-primary md:mb-4 md:text-4xl">
         {slide.headlinePrefix}{" "}
-        <span className="inline-block rotate-2 bg-[#0074FE] px-3 py-1 text-white shadow-md">
+        <span className="inline-block rotate-2 bg-[#0074FE] px-2 py-0.5 text-white shadow-md md:px-3 md:py-1">
           {slide.highlight}
         </span>
       </h3>
 
-      <p className="mb-8 max-w-md text-sm leading-relaxed text-copy-secondary">
+      <p className="mb-6 max-w-full text-sm leading-relaxed text-copy-secondary md:mb-8 md:max-w-md">
         {slide.body}
       </p>
 
       <button
         type="button"
-        className="mb-16 inline-flex w-fit items-center gap-2 border border-copy-primary px-6 py-2.5 text-sm font-semibold text-copy-primary transition-colors hover:bg-subtle"
+        className="mb-10 inline-flex w-fit items-center gap-2 border border-copy-primary px-5 py-2 text-sm font-semibold text-copy-primary transition-colors hover:bg-subtle md:mb-16 md:px-6 md:py-2.5"
       >
         MEMORY LANE
         <ArrowRight className="h-4 w-4" strokeWidth={2} />
       </button>
 
-      <div className="border-t border-surface-border pt-10">
-        <p className="mb-2 text-sm font-medium text-copy-faint">
+      <div className="border-t border-surface-border pt-6 md:pt-10">
+        <p className="mb-1.5 text-sm font-medium text-copy-faint md:mb-2">
           {slide.secondaryEyebrow}
         </p>
-        <p className="max-w-md text-sm leading-relaxed text-copy-muted">
+        <p className="max-w-full text-sm leading-relaxed text-copy-muted md:max-w-md">
           {slide.secondaryBody}
         </p>
       </div>
@@ -223,9 +236,9 @@ export function ScrollWishesGallery() {
   }, []);
 
   return (
-    <section className="relative px-6 pb-24">
+    <section className="relative px-1 sm:px-6 pb-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
-        <div>
+        <div className="flex flex-col gap-10 md:gap-0">
           {slides.map((slide, index) => (
             <div
               key={slide.eyebrow}
@@ -238,30 +251,8 @@ export function ScrollWishesGallery() {
           ))}
         </div>
 
-        <div className="relative hidden md:block">
+        {/* <div className="relative hidden md:block">
           <div className="sticky top-24 h-[calc(100vh-6rem)]">
-            {/* <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -left-6 top-8 h-40 w-40 rounded-full border border-surface-border-subtle"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-2 bottom-16 h-24 w-24 rounded-full border border-surface-border-subtle"
-            /> */}
-
-            {/* <Sparkles
-              className="pointer-events-none absolute left-0 top-4 h-5 w-5 text-state-warning"
-              aria-hidden="true"
-            />
-            <Sparkles
-              className="pointer-events-none absolute right-12 top-20 h-4 w-4 text-accent-secondary"
-              aria-hidden="true"
-            />
-            <Sparkles
-              className="pointer-events-none absolute bottom-32 left-8 h-4 w-4 text-state-warning"
-              aria-hidden="true"
-            /> */}
-
             {slides.map((slide, index) => (
               <div
                 key={slide.eyebrow}
@@ -282,18 +273,19 @@ export function ScrollWishesGallery() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-10 md:hidden">
           {slides.map((slide) => (
             <div
               key={slide.eyebrow}
-              className="relative h-[420px] w-full"
+              className="relative mx-auto h-[800px] w-full max-w-[800px]"
             >
               {slide.images.map((image, imageIndex) => (
                 <ScrollableImageCard
                   key={`${slide.eyebrow}-${imageIndex}`}
                   {...image}
+                  centered
                 />
               ))}
             </div>
@@ -306,9 +298,9 @@ export function ScrollWishesGallery() {
           <Image
             src={happinessConfetti2}
             alt="confetti"
-            className="h-12 relative -top-8 right-6"
+            className="hidden md:block h-12 relative -top-8 right-6"
           />
-          <p className="text-center text-3xl md:text-4xl font-extrabold">
+          <p className="text-center text-2xl md:text-4xl font-extrabold">
             <span className="text-[#FE029B]">Spreading</span>
             <span className="text-[#0C75F2] ml-2">joy</span>
             <span className="text-black ml-2">and</span>
@@ -317,16 +309,16 @@ export function ScrollWishesGallery() {
           <Image
             src={happinessConfetti1}
             alt="confetti"
-            className="h-16 relative top-10 left-0"
+            className="hidden md:block h-16 relative top-10 left-0"
           />
         </div>
-              <button
-        type="button"
-        className="mb-16 inline-flex w-fit items-center gap-2 border border-copy-primary px-6 py-2.5 text-sm font-semibold text-copy-primary transition-colors hover:bg-subtle"
-      >
-        MEMORY LANE
-        <ArrowRight className="h-4 w-4" strokeWidth={2} />
-      </button>
+        <button
+          type="button"
+          className="mb-16 inline-flex w-fit items-center gap-2 border border-copy-primary px-6 py-2.5 text-sm font-semibold text-copy-primary transition-colors hover:bg-subtle"
+        >
+          MEMORY LANE
+          <ArrowRight className="h-4 w-4" strokeWidth={2} />
+        </button>
       </div>
     </section>
   );
