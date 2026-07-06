@@ -33,11 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-context file
-/C:\Users\DELL\Documents\projects\lazy-birthday\my-app\context
-
-terminal file
-/C:\Users\DELL\Documents\projects\lazy-birthday\my-app\terminals
+# local editor/context and terminal state
+/context
+/terminals
 
 # vercel
 .vercel

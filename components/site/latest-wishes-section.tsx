@@ -5,27 +5,27 @@ import Image from "next/image";
 export function LatestWishesSection() {
   return (
     <main>
-      {/* <section className="relative px-6 pb-0 -mt-20">
-        <div className="relative mx-auto flex max-w-6xl items-center justify-center">
-          <div className="relative inline-flex -rotate-94">
+      <section className="relative -mt-20 px-4 pb-0 sm:px-6">
+        <div className="relative mx-auto flex max-w-6xl items-center justify-center py-10 sm:py-14 md:py-0">
+          <div className="relative inline-flex w-full max-w-[220px] -rotate-94 sm:max-w-[260px] md:max-w-[300px]">
             <Image
               src={PaperLines}
               alt="paper lines"
               width={300}
               height={300}
-              className="opacity-20"
+              className="h-auto w-full opacity-20"
             />
           </div>
-          <div className="absolute top-60 left-1/2 -translate-x-1/2">
-            <h2 className="px-4 text-center text-4xl font-bold text-copy-primary">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+            <h2 className="text-2xl font-bold text-copy-primary sm:text-3xl md:text-4xl">
               Latest Wishes
             </h2>
-            <p className="text-center text-sm text-copy-secondary">
+            <p className="mt-2 max-w-[22rem] text-xs text-copy-secondary sm:text-sm">
               The people who loves you the most have sent their wishes for you.
             </p>
           </div>
         </div>
-      </section> */}
+      </section>
       <ScrollWishesGallery />
     </main>
   );

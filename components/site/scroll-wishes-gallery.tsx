@@ -251,7 +251,7 @@ export function ScrollWishesGallery() {
           ))}
         </div>
 
-        {/* <div className="relative hidden md:block">
+        <div className="relative hidden md:block">
           <div className="sticky top-24 h-[calc(100vh-6rem)]">
             {slides.map((slide, index) => (
               <div
@@ -273,7 +273,7 @@ export function ScrollWishesGallery() {
               </div>
             ))}
           </div>
-        </div> */}
+        </div>
 
         <div className="flex flex-col gap-10 md:hidden">
           {slides.map((slide) => (
