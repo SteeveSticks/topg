@@ -9,12 +9,13 @@ export async function storeImageUpload(
 ): Promise<string> {
   const blobConfig = getBlobStorageConfig();
 
-  if (blobConfig.enabled && blobConfig.token) {
+  if (blobConfig.enabled) {
+    // Let the SDK resolve credentials: OIDC + BLOB_STORE_ID on Vercel,
+    // or BLOB_READ_WRITE_TOKEN locally / off-platform. Passing an explicit
+    // token overrides OIDC and can point at a stale or missing store.
     const blob = await put(objectKey, file, {
       access: blobConfig.access,
       contentType: file.type,
-      token: blobConfig.token,
-      ...(blobConfig.storeId ? { storeId: blobConfig.storeId } : {}),
     });
 
     return blob.url;

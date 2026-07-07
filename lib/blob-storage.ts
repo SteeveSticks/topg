@@ -17,12 +17,23 @@ function resolveBlobAccess(): BlobAccess {
   return "public";
 }
 
+function hasOidcBlobAuth(): boolean {
+  return Boolean(
+    process.env.VERCEL_OIDC_TOKEN?.trim() &&
+      process.env.BLOB_STORE_ID?.trim(),
+  );
+}
+
+export function isBlobStorageAvailable(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim()) || hasOidcBlobAuth();
+}
+
 export function getBlobStorageConfig(): BlobStorageConfig {
   const token = process.env.BLOB_READ_WRITE_TOKEN?.trim();
   const storeId = process.env.BLOB_STORE_ID?.trim();
 
   return {
-    enabled: Boolean(token),
+    enabled: isBlobStorageAvailable(),
     token,
     storeId,
     access: resolveBlobAccess(),
