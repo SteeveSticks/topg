@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Relationship } from "@/lib/generated/prisma/enums";
+import { storedImageUrlSchema } from "@/lib/image-url";
 import { isValidVideoEmbedUrl } from "@/lib/video-url";
 
 export const createWishSchema = z
@@ -17,7 +18,7 @@ export const createWishSchema = z
       .trim()
       .min(1, "message is required")
       .max(1000, "message must be at most 1000 characters"),
-    photoUrl: z.string().url("photoUrl must be a valid URL").optional(),
+    photoUrl: storedImageUrlSchema.optional(),
     videoUrl: z.string().trim().optional(),
     status: z.enum(["PENDING", "APPROVED", "REJECTED"]).optional(),
   })

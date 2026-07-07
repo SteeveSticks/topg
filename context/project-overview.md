@@ -28,7 +28,7 @@ Birthday Wishes is a single-event public celebration site. A site owner sets up 
 - Chronological, alternating timeline of titled entries with photo and description.
 - Owner-authored only — not a destination for public submissions.
 ### Guestbook
-- Two-column "open book" view of approved written wishes with author and date.
+- Responsive card grid of approved written wishes with author and date.
 - Pagination via "Load Older Messages."
 - Pending/scheduled entries render in a distinct muted state and are not shown to the public.
 ### Add Wish

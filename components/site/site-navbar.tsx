@@ -13,12 +13,12 @@ interface SiteNavbarProps {
 
 const navLinks: { label: string; href: string; page: ActivePage }[] =
   [
-    { label: "Gallery", href: "/", page: "gallery" },
     {
       label: "Memory Lane",
       href: "/memory-lane",
       page: "memory-lane",
     },
+    { label: "Gallery", href: "/gallery", page: "gallery" },
     { label: "Guestbook", href: "/guestbook", page: "guestbook" },
   ];
 
@@ -124,7 +124,10 @@ export function SiteNavbar({ activePage }: SiteNavbarProps) {
               onClick={() => setIsMenuOpen((open) => !open)}
             >
               {isMenuOpen ? (
-                <X className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2} />
+                <X
+                  className="h-4 w-4 sm:h-5 sm:w-5"
+                  strokeWidth={2}
+                />
               ) : (
                 <Menu
                   className="h-4 w-4 sm:h-5 sm:w-5"

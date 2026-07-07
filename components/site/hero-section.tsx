@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Cake, Sparkles } from "lucide-react";
 
 import { CountdownBlock } from "@/components/site/countdown-block";
-import profilePic from "@/public/profile_pic.jpg";
 import confetti1 from "@/public/confitti1-removebg-preview.png";
 import confetti2 from "@/public/conftti2-removebg-preview.png";
 interface HeroSectionProps {
@@ -14,7 +13,7 @@ interface HeroSectionProps {
 
 export function HeroSection({
   honoreeName,
-  // photoUrl,
+  photoUrl,
   subtitle,
   countdownTarget,
 }: HeroSectionProps) {
@@ -24,11 +23,11 @@ export function HeroSection({
         <div className="absolute -inset-2 rounded-full bg-accent-decorative/40 blur-sm" />
         <div className="relative size-40 overflow-hidden rounded-full ring-4 ring-brand md:size-48">
           <Image
-            src={profilePic}
+            src={photoUrl}
             alt={honoreeName}
             fill
             className="object-cover"
-            // priority
+            sizes="(max-width: 768px) 160px, 192px"
           />
         </div>
         <span className="absolute -bottom-1 -left-1 inline-flex size-9 items-center justify-center rounded-full bg-brand text-white shadow-md">

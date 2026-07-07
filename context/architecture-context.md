@@ -19,7 +19,7 @@
 - `app/api/wishes` — Public `POST` for wish submission (validation, spam/rate-limiting, file handling); admin-only `PATCH`/`DELETE` for approve/reject/remove.
 - `app/api/timeline` — Admin-only CRUD for Memory Lane entries.
 - `lib` — Shared infrastructure: Prisma client, upload validation helpers, rate limiting, media URL parsing (YouTube/Vimeo ID extraction).
-- `components` — UI composition: navbar, wish cards, timeline rows, guestbook spread, upload dropzone, countdown block.
+- `components` — UI composition: navbar, wish cards, timeline rows, guestbook messages grid, upload dropzone, countdown block.
 - `prisma` — Database schema and generated client output.
 
 ## Data Model (conceptual)

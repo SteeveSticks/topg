@@ -1,20 +1,40 @@
+import { notFound } from "next/navigation";
+
 import { HeroSection } from "@/components/site/hero-section";
 import { LatestWishesSection } from "@/components/site/latest-wishes-section";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNavbar } from "@/components/site/site-navbar";
+import { toNextImageSrc } from "@/lib/image-url";
+import { getSite } from "@/lib/queries/site";
+import { getApprovedWishes } from "@/lib/queries/wishes";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [site, { items: wishes }] = await Promise.all([
+    getSite(),
+    getApprovedWishes({ take: 50 }),
+  ]);
+
+  const wishImageUrls = wishes
+    .filter((wish) => wish.photoUrl)
+    .map((wish) => toNextImageSrc(wish.photoUrl as string));
+
+  if (!site) {
+    notFound();
+  }
+
   return (
     <div className="min-h-screen bg-base">
-      <SiteNavbar activePage="gallery" />
-      <main className="mx-auto max-w-6xl pt-16 px-6">
+      <SiteNavbar />
+      <main className="mx-auto max-w-6xl px-6 pt-16">
         <HeroSection
-          honoreeName="David"
-          photoUrl="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
-          subtitle="Let's celebrate another trip around the sun. We've gathered wishes, memories, and love from everyone who thinks you're amazing."
-          countdownTarget="2026-07-08T17:00:00"
+          honoreeName={site.honoreeName}
+          photoUrl={toNextImageSrc(site.heroPhotoUrl)}
+          subtitle={site.pageCopy}
+          countdownTarget={site.countdownTarget.toISOString()}
         />
-        <LatestWishesSection />
+        <LatestWishesSection imageUrls={wishImageUrls} />
       </main>
       <SiteFooter />
     </div>

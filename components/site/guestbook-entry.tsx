@@ -5,7 +5,6 @@ interface GuestbookEntryProps {
   author: string;
   date: string;
   state: "visible" | "muted";
-  showDivider?: boolean;
 }
 
 export function GuestbookEntry({
@@ -13,15 +12,19 @@ export function GuestbookEntry({
   author,
   date,
   state,
-  showDivider = true,
 }: GuestbookEntryProps) {
-  const isMuted = state === "muted";
+  const isMuted = state === "visible";
 
   return (
-    <article className={cn(showDivider ? "mb-8" : "mb-0")}>
+    <article
+      className={cn(
+        "rounded-md bg-surface p-4 shadow-md",
+        isMuted && "border border-surface-border-subtle",
+      )}
+    >
       <p
         className={cn(
-          "mb-4 font-serif text-[15px] leading-[1.7] italic md:text-base",
+          "mb-4 font-serif text-[15px] leading-[1.7] italic text-black md:text-base",
           isMuted ? "text-state-pending" : "text-copy-primary",
         )}
       >
@@ -43,9 +46,6 @@ export function GuestbookEntry({
       >
         — {author}
       </p>
-      {showDivider ? (
-        <hr className="mt-8 border-surface-border" />
-      ) : null}
     </article>
   );
 }

@@ -17,7 +17,7 @@ export function TimelineClosingCta() {
           we cannot wait to celebrate the next one with you.
         </p>
         <Link
-          href="/"
+          href="/gallery"
           className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
         >
           View Full Gallery

@@ -21,11 +21,7 @@ export default function AddWishPage() {
           aria-hidden
         />
 
-        <AddWishForm
-          onSubmit={(values) => {
-            console.log("Wish submitted:", values);
-          }}
-        />
+        <AddWishForm />
       </main>
       <SiteFooter />
     </div>

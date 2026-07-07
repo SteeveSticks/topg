@@ -1,9 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { getTimelineEntries } from "@/lib/queries/timeline";
 
 export async function GET() {
-  const entries = await prisma.timelineEntry.findMany({
-    orderBy: { sortOrder: "asc" },
-  });
+  const entries = await getTimelineEntries();
 
   return Response.json(entries);
 }

@@ -4,20 +4,28 @@ import {
   rateLimitResponse,
   zodErrorResponse,
 } from "@/lib/api-response";
+import { WishStatus } from "@/lib/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
+import { getApprovedWishes } from "@/lib/queries/wishes";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { createWishSchema } from "@/lib/schemas/create-wish";
-import { WishStatus } from "@/lib/generated/prisma/enums";
 
 const WISH_COOLDOWN_MS = 60_000;
+const DEFAULT_TAKE = 6;
+const MAX_TAKE = 50;
 
-export async function GET() {
-  const wishes = await prisma.wish.findMany({
-    where: { status: WishStatus.APPROVED },
-    orderBy: { createdAt: "desc" },
-  });
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const cursor = searchParams.get("cursor") ?? undefined;
+  const takeParam = searchParams.get("take");
+  const parsedTake = takeParam ? Number.parseInt(takeParam, 10) : DEFAULT_TAKE;
+  const take = Number.isFinite(parsedTake)
+    ? Math.min(Math.max(parsedTake, 1), MAX_TAKE)
+    : DEFAULT_TAKE;
 
-  return Response.json(wishes);
+  const { items, nextCursor } = await getApprovedWishes({ cursor, take });
+
+  return Response.json({ items, nextCursor });
 }
 
 export async function POST(request: Request) {

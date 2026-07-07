@@ -1,10 +1,10 @@
-import { put } from "@vercel/blob";
 import { getClientIp } from "@/lib/client-ip";
 import {
   jsonError,
   rateLimitResponse,
 } from "@/lib/api-response";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { storeImageUpload } from "@/lib/store-image-upload";
 import { validateImageUpload } from "@/lib/upload-validation";
 
 const UPLOAD_COOLDOWN_MS = 10_000;
@@ -38,13 +38,12 @@ export async function POST(request: Request) {
   }
 
   try {
-    const blob = await put(`wishes/${crypto.randomUUID()}-${file.name}`, file, {
-      access: "public",
-      contentType: file.type,
-    });
+    const objectKey = `wishes/${crypto.randomUUID()}-${file.name}`;
+    const url = await storeImageUpload(file, objectKey);
 
-    return Response.json({ url: blob.url });
-  } catch {
+    return Response.json({ url });
+  } catch (error) {
+    console.error("Upload failed:", error);
     return jsonError("Failed to upload file", 500);
   }
 }

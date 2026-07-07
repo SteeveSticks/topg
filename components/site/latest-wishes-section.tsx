@@ -2,7 +2,11 @@ import { ScrollWishesGallery } from "@/components/site/scroll-wishes-gallery";
 import PaperLines from "@/public/paper-lines-removebg-preview.png";
 import Image from "next/image";
 
-export function LatestWishesSection() {
+interface LatestWishesSectionProps {
+  imageUrls?: string[];
+}
+
+export function LatestWishesSection({ imageUrls = [] }: LatestWishesSectionProps) {
   return (
     <main>
       <section className="relative -mt-20 px-4 pb-0 sm:px-6">
@@ -26,7 +30,7 @@ export function LatestWishesSection() {
           </div>
         </div>
       </section>
-      <ScrollWishesGallery />
+      <ScrollWishesGallery imageUrls={imageUrls} />
     </main>
   );
 }

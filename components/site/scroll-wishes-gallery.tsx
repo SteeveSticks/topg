@@ -11,6 +11,7 @@ import slide5 from "@/public/slide5.jpg";
 import slide6 from "@/public/slide6.jpg";
 import happinessConfetti1 from "@/public/happiness-confetti1-removebg-preview.png";
 import happinessConfetti2 from "@/public/happiness-confetti2-removebg-preview.png";
+import { toNextImageSrc } from "@/lib/image-url";
 
 interface GalleryImage {
   src: string | StaticImageData;
@@ -32,7 +33,7 @@ interface GallerySlide {
   images: GalleryImage[];
 }
 
-const slides: GallerySlide[] = [
+const baseSlides: GallerySlide[] = [
   {
     eyebrow: "Create Happiness",
     subtitle:
@@ -122,6 +123,28 @@ const slides: GallerySlide[] = [
   },
 ];
 
+function buildSlides(imageUrls: string[]): GallerySlide[] {
+  let urlIndex = 0;
+
+  return baseSlides.map((slide) => ({
+    ...slide,
+    images: slide.images.map((image) => {
+      const url = imageUrls[urlIndex];
+      urlIndex += 1;
+
+      if (!url) {
+        return image;
+      }
+
+      return {
+        ...image,
+        src: toNextImageSrc(url),
+        alt: `Wish photo ${urlIndex}`,
+      };
+    }),
+  }));
+}
+
 function getCenteredMobilePosition(zIndex: string) {
   if (zIndex === "z-10") {
     return "top-8 left-1/2 w-[68%] -translate-x-[58%]";
@@ -207,7 +230,14 @@ function SlideText({ slide }: { slide: GallerySlide }) {
   );
 }
 
-export function ScrollWishesGallery() {
+interface ScrollWishesGalleryProps {
+  imageUrls?: string[];
+}
+
+export function ScrollWishesGallery({
+  imageUrls = [],
+}: ScrollWishesGalleryProps) {
+  const slides = buildSlides(imageUrls);
   const [activeIndex, setActiveIndex] = useState(0);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
 

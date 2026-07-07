@@ -1,8 +1,8 @@
 import { jsonError } from "@/lib/api-response";
-import { prisma } from "@/lib/prisma";
+import { getSite } from "@/lib/queries/site";
 
 export async function GET() {
-  const site = await prisma.site.findFirst();
+  const site = await getSite();
 
   if (!site) {
     return jsonError("Site configuration not found", 404);

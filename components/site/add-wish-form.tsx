@@ -11,41 +11,98 @@ import {
 } from "@/components/site/relationship-toggle";
 import { UploadDropzone } from "@/components/site/upload-dropzone";
 
-export interface AddWishFormValues {
-  name: string;
-  relationship: Relationship;
-  message: string;
-  photo?: File;
-  videoUrl?: string;
-}
+const relationshipToApi: Record<Relationship, "FAMILY" | "FRIEND" | "COLLEAGUE"> =
+  {
+    family: "FAMILY",
+    friend: "FRIEND",
+    colleague: "COLLEAGUE",
+  };
 
-interface AddWishFormProps {
-  onSubmit: (values: AddWishFormValues) => void;
-}
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
-export function AddWishForm({ onSubmit }: AddWishFormProps) {
+export function AddWishForm() {
   const [name, setName] = useState("");
   const [relationship, setRelationship] = useState<Relationship>("friend");
   const [message, setMessage] = useState("");
   const [photo, setPhoto] = useState<File | undefined>();
   const [videoUrl, setVideoUrl] = useState("");
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const hasPhoto = Boolean(photo);
   const hasVideo = videoUrl.trim().length > 0;
-  const canSubmit = name.trim().length > 0 && message.trim().length > 0;
+  const canSubmit =
+    name.trim().length > 0 && message.trim().length > 0 && status !== "submitting";
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!canSubmit) return;
 
-    onSubmit({
-      name: name.trim(),
-      relationship,
-      message: message.trim(),
-      photo,
-      videoUrl: videoUrl.trim() || undefined,
-    });
+    setStatus("submitting");
+    setErrorMessage(null);
+
+    try {
+      let photoUrl: string | undefined;
+
+      if (photo) {
+        const formData = new FormData();
+        formData.append("file", photo);
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!uploadResponse.ok) {
+          const uploadError = (await uploadResponse.json()) as { error?: string };
+          throw new Error(uploadError.error ?? "Failed to upload photo");
+        }
+
+        const uploadData = (await uploadResponse.json()) as { url: string };
+        photoUrl = uploadData.url;
+      }
+
+      const wishResponse = await fetch("/api/wishes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          authorName: name.trim(),
+          relationship: relationshipToApi[relationship],
+          message: message.trim(),
+          photoUrl,
+          videoUrl: videoUrl.trim() || undefined,
+        }),
+      });
+
+      if (!wishResponse.ok) {
+        const wishError = (await wishResponse.json()) as { error?: string };
+        throw new Error(wishError.error ?? "Failed to submit wish");
+      }
+
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+    }
   };
+
+  if (status === "success") {
+    return (
+      <div className="rounded-xl bg-surface p-6 text-center shadow-sm sm:p-8">
+        <h1 className="text-2xl font-bold text-brand sm:text-3xl">
+          Wish Submitted!
+        </h1>
+        <p className="mt-4 text-sm leading-relaxed text-copy-secondary">
+          Thank you for sharing your wish. It has been received and will appear
+          publicly once it has been approved.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form
@@ -59,6 +116,12 @@ export function AddWishForm({ onSubmit }: AddWishFormProps) {
         Send a heartfelt message, photo, or video to celebrate their special
         day.
       </p>
+
+      {errorMessage ? (
+        <p className="mt-4 rounded-2xl border border-state-error/30 bg-state-error/5 px-4 py-3 text-sm text-state-error">
+          {errorMessage}
+        </p>
+      ) : null}
 
       <div className="mt-8 space-y-6">
         <div className="space-y-2">
@@ -180,12 +243,12 @@ export function AddWishForm({ onSubmit }: AddWishFormProps) {
           disabled={!canSubmit}
           className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Post Wish
+          {status === "submitting" ? "Posting..." : "Post Wish"}
           <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
         </button>
 
         <p className="text-center text-xs text-copy-muted">
-          Your wish will be added to the public gallery.
+          Your wish will be reviewed before it appears publicly.
         </p>
       </div>
     </form>
