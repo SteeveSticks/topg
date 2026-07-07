@@ -50,7 +50,7 @@ export function AddWishForm({ onSubmit }: AddWishFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl bg-surface p-6 shadow-sm sm:p-8"
+      className="rounded-xl bg-surface p-6 shadow-sm sm:p-6"
     >
       <h1 className="text-2xl font-bold text-brand sm:text-3xl">
         Share Your Wish
@@ -79,7 +79,7 @@ export function AddWishForm({ onSubmit }: AddWishFormProps) {
               placeholder="Enter your name"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="h-11 pl-11"
+              className="h-11 pl-11 text-black"
               required
             />
           </div>
@@ -107,7 +107,7 @@ export function AddWishForm({ onSubmit }: AddWishFormProps) {
             placeholder="Write your birthday wish..."
             value={message}
             onChange={(event) => setMessage(event.target.value)}
-            className="min-h-32"
+            className="min-h-32 text-black"
             required
           />
         </div>
@@ -169,7 +169,7 @@ export function AddWishForm({ onSubmit }: AddWishFormProps) {
                 setVideoUrl(event.target.value);
                 if (event.target.value.trim()) setPhoto(undefined);
               }}
-              className="h-11 pl-11"
+              className="h-11 pl-11 text-black"
               disabled={hasPhoto}
             />
           </div>

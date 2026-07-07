@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Relationship {
+  FAMILY
+  FRIEND
+  COLLEAGUE
+}
+
+enum WishStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Site {
+  id              String   @id @default(cuid())
+  honoreeName     String
+  tagline         String
+  heroPhotoUrl    String
+  countdownTarget DateTime
+  pageCopy        String
+}
+
+model Wish {
+  id           String       @id @default(cuid())
+  authorName   String
+  relationship Relationship
+  message      String
+  photoUrl     String?
+  videoUrl     String?
+  status       WishStatus   @default(PENDING)
+  createdAt    DateTime     @default(now())
+}
+
+model TimelineEntry {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  photoUrl    String
+  sortOrder   Int
+}

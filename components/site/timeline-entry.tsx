@@ -44,7 +44,7 @@ export function TimelineEntry({ title, description, imageUrl, side }: TimelineEn
     <div className="relative grid grid-cols-1 items-center gap-8 py-10 md:grid-cols-2 md:gap-12 md:py-14">
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 z-10 hidden size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand ring-4 ring-base md:block"
+        className="absolute left-1/2 top-1/2 z-10 hidden size-3 -translate-x-1/2 -translate-y-1/2 bg-brand ring-4 ring-base md:block"
       />
 
       <div
