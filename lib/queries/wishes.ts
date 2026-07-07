@@ -7,6 +7,16 @@ export interface ApprovedWishesPage {
   nextCursor: string | null;
 }
 
+export async function getApprovedWishesWithPhotos() {
+  return prisma.wish.findMany({
+    where: {
+      status: WishStatus.APPROVED,
+      photoUrl: { not: null },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
 export async function getApprovedWishes(options?: {
   cursor?: string;
   take?: number;

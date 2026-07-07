@@ -1,6 +1,7 @@
 import { TimelineEntry } from "@/components/site/timeline-entry";
 
 export interface TimelineEntryData {
+  id: string;
   title: string;
   description: string;
   imageUrl: string;
@@ -21,7 +22,7 @@ export function Timeline({ entries }: TimelineProps) {
       <div className="relative mx-auto max-w-6xl">
         {entries.map((entry, index) => (
           <TimelineEntry
-            key={entry.title}
+            key={entry.id}
             title={entry.title}
             description={entry.description}
             imageUrl={entry.imageUrl}

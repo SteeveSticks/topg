@@ -151,6 +151,7 @@ export default function AdminSettingsPage() {
             </label>
             <Input
               id="honoree-name"
+              className="text-black"
               value={values.honoreeName}
               onChange={(event) =>
                 updateField("honoreeName", event.target.value)
@@ -170,6 +171,7 @@ export default function AdminSettingsPage() {
             <Input
               id="tagline"
               value={values.tagline}
+              className="text-black"
               onChange={(event) => updateField("tagline", event.target.value)}
               required
               disabled={saving}
@@ -192,6 +194,7 @@ export default function AdminSettingsPage() {
               }
               placeholder="https://"
               required
+              className="text-black"
               disabled={saving}
             />
           </div>

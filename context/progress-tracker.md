@@ -12,6 +12,8 @@ All public pages wired to real data; next work TBD
 
 ## Recently Shipped (unnumbered)
 
+- **Memory Lane real images** — hero background uses DB photos via `getGalleryImages()` (replaces static love-video collage); timeline entries already used `photoUrl` from DB; stable `id` keys on timeline rows
+- **Gallery real images** — `/gallery` renders all DB images (site hero, timeline entries, approved wish photos) via `imageUrl` on each tile; removed 20-tile placeholder padding and slide image fallbacks; `getApprovedWishesWithPhotos()` fetches every approved wish with a photo
 - **next/image localhost fix** — `lib/image-url.ts` adds `toNextImageSrc()` (strips same-origin `/uploads/` absolute URLs to relative paths) and `storedImageUrlSchema`; local upload fallback now returns `/uploads/wishes/...` instead of `http://localhost:3000/...`; normalization applied in home, guestbook, memory-lane, and scroll gallery
 - **Upload local fallback** — `lib/store-image-upload.ts` writes to `public/uploads/wishes/` when `BLOB_READ_WRITE_TOKEN` is unset (local dev); production still uses Vercel Blob; `/api/upload` 500 fixed; verified text-only and photo wish POSTs persist to DB
 - **Home latest-wishes restore** — `LatestWishesSection` reverted to scroll-driven `ScrollWishesGallery` layout; approved wish `photoUrl` values replace slide image slots only (static slides fallback when fewer than 6); hero section still uses real `Site` data

@@ -1,48 +1,56 @@
-export function MemoryLaneHero() {
-  const videos = [
-    "/video/love-video.mp4",
-    "/video/love-video2.mp4",
-    "/video/love-video3.mp4",
-    "/video/love-video4.mp4",
-  ];
+import Image from "next/image";
+
+interface MemoryLaneHeroProps {
+  imageUrls: string[];
+}
+
+export function MemoryLaneHero({ imageUrls }: MemoryLaneHeroProps) {
+  const mobileImage = imageUrls[0];
+  const desktopImages = imageUrls.slice(0, 4);
+  const desktopColumnCount = Math.max(desktopImages.length, 1);
 
   return (
     <section className="relative mx-2 mb-4 min-h-screen overflow-hidden rounded-3xl">
-      <div className="absolute inset-0 z-0">
-        <div className="h-screen w-full md:hidden">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-            tabIndex={-1}
-            className="pointer-events-none h-full w-full scale-105 object-cover object-center"
-          >
-            <source src={videos[0]} type="video/mp4" />
-          </video>
-        </div>
-
-        <div className="hidden h-screen w-full md:grid md:grid-cols-4">
-          {videos.map((src) => (
-            <div key={src} className="h-screen overflow-hidden">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-hidden="true"
-                tabIndex={-1}
-                className="pointer-events-none h-full w-full scale-105 object-cover object-center"
-              >
-                <source src={src} type="video/mp4" />
-              </video>
+      {imageUrls.length > 0 ? (
+        <div className="absolute inset-0 z-0">
+          {mobileImage ? (
+            <div className="relative h-screen w-full md:hidden">
+              <Image
+                src={mobileImage}
+                alt=""
+                fill
+                priority
+                aria-hidden
+                className="pointer-events-none scale-105 object-cover object-center"
+                sizes="100vw"
+              />
             </div>
-          ))}
+          ) : null}
+
+          {desktopImages.length > 0 ? (
+            <div
+              className="hidden h-screen w-full md:grid"
+              style={{
+                gridTemplateColumns: `repeat(${desktopColumnCount}, minmax(0, 1fr))`,
+              }}
+            >
+              {desktopImages.map((src, index) => (
+                <div key={`${src}-${index}`} className="relative h-screen overflow-hidden">
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    priority={index === 0}
+                    aria-hidden
+                    className="pointer-events-none scale-105 object-cover object-center"
+                    sizes="25vw"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
-      </div>
+      ) : null}
 
       <div
         aria-hidden="true"

@@ -1,15 +1,12 @@
 import { GalleryGrid } from "@/components/site/gallery-grid";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNavbar } from "@/components/site/site-navbar";
-import {
-  buildGalleryDisplayItems,
-  getGalleryImages,
-} from "@/lib/gallery-images";
+import { getGalleryImages } from "@/lib/gallery-images";
 
 export const dynamic = "force-dynamic";
 
 export default async function GalleryPage() {
-  const items = buildGalleryDisplayItems(await getGalleryImages());
+  const items = await getGalleryImages();
 
   return (
     <div className="min-h-screen bg-base">
