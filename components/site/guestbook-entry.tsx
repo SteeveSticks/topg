@@ -13,21 +13,16 @@ export function GuestbookEntry({
   date,
   state,
 }: GuestbookEntryProps) {
-  const isMuted = state === "visible";
+  const isMuted = state === "muted";
 
   return (
     <article
       className={cn(
         "rounded-md bg-surface p-4 shadow-md",
-        isMuted && "border border-surface-border-subtle",
+        isMuted && "border border-surface-border-subtle bg-blue-300",
       )}
     >
-      <p
-        className={cn(
-          "mb-4 font-serif text-[15px] leading-[1.7] italic text-black md:text-base",
-          isMuted ? "text-state-pending" : "text-copy-primary",
-        )}
-      >
+      <p className="mb-4 font-serif text-[15px] leading-[1.7] italic text-black bg-black md:text-base">
         {message}
       </p>
       <p
