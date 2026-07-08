@@ -1,33 +1,62 @@
 ---
-pid: 8072
+pid: 28888
 cwd: "C:\Users\DELL\Documents\projects\lazy-birthday\my-app"
-command: "cd \"C:\\Users\\DELL\\Documents\\projects\\lazy-birthday\\my-app\" && npm run build 2>&1; echo EXIT:$LASTEXITCODE"
-started_at: 2026-07-05T10:28:17.449Z
-running_for_ms: 204990   
+command: "npm run build"
+started_at: 2026-07-08T18:29:45.077Z
+running_for_ms: 455013   
 ---
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
 
 > my-app@0.1.0 build
-> next build
+> prisma generate && next build
+
+
+✔ Generated Prisma Client (7.8.0) to .\lib\generated\prisma in 303ms
 
 ▲ Next.js 16.2.6 (Turbopack)
+- Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 8.7s
+✓ Compiled successfully in 51s
   Running TypeScript ...
-  Finished TypeScript in 9.9s ...
-  Collecting page data using 5 workers ...
-  Generating static pages using 5 workers (0/4) ...
-  Generating static pages using 5 workers (1/4) 
-  Generating static pages using 5 workers (2/4) 
-  Generating static pages using 5 workers (3/4) 
-✓ Generating static pages using 5 workers (4/4) in 1551ms
+  Finished TypeScript in 58s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/17) ...
+  Generating static pages using 7 workers (4/17) 
+  Generating static pages using 7 workers (8/17) 
+  Generating static pages using 7 workers (12/17) 
+✓ Generating static pages using 7 workers (17/17) in 2.1s
   Finalizing page optimization ...
 
 Route (app)
-┌ ○ /
-└ ○ /_not-found
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /add-wish
+├ ○ /admin
+├ ○ /admin/login
+├ ○ /admin/settings
+├ ○ /admin/timeline
+├ ƒ /api/admin/login
+├ ƒ /api/admin/logout
+├ ƒ /api/admin/site
+├ ƒ /api/admin/timeline
+├ ƒ /api/admin/timeline/[id]
+├ ƒ /api/admin/wishes
+├ ƒ /api/admin/wishes/[id]
+├ ƒ /api/site
+├ ƒ /api/timeline
+├ ƒ /api/upload
+├ ƒ /api/wishes
+├ ƒ /gallery
+├ ƒ /guestbook
+└ ƒ /memory-lane
 
 
-○  (Static)  prerendered as static content
+ƒ Proxy (Middleware)
 
-EXIT:0
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

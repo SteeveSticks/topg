@@ -1,7 +1,0 @@
----
-pid: 21920
-cwd: "C:\Users\DELL\Documents\projects\lazy-birthday\my-app"
-command: "npx tsc --noEmit 2>&1 | Select-String -Pattern \"countdown\" -Context 0,2"
-started_at: 2026-07-05T11:49:48.928Z
-running_for_ms: 120010   
----

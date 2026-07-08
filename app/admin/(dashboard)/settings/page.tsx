@@ -209,6 +209,7 @@ export default function AdminSettingsPage() {
             <Input
               id="countdown-target"
               type="datetime-local"
+              className="text-black"
               value={toDatetimeLocalValue(values.countdownTarget)}
               onChange={(event) =>
                 updateField("countdownTarget", event.target.value)
@@ -231,7 +232,7 @@ export default function AdminSettingsPage() {
               onChange={(event) => updateField("pageCopy", event.target.value)}
               required
               disabled={saving}
-              className="min-h-32 rounded-2xl"
+              className="min-h-32 rounded-2xl text-black"
             />
           </div>
 

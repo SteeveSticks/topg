@@ -49,7 +49,8 @@ export function GuestbookLoadMore({
 
       setEntries((current) => [...current, ...newEntries]);
       setNextCursor(data.nextCursor);
-    } catch {
+    } catch (err) {
+      console.error("Failed to load older guestbook messages:", err);
       setError("Could not load older messages. Please try again.");
     } finally {
       setLoading(false);

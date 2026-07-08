@@ -3,8 +3,17 @@ import type { WishCardProps } from "@/components/site/wish-card";
 import { toNextImageSrc } from "@/lib/image-url";
 import { getVideoThumbnailUrl } from "@/lib/video-url";
 
-export function formatGuestbookDate(date: Date): string {
-  return date
+interface WishForGuestbook {
+  id: string;
+  authorName: string;
+  message: string;
+  createdAt: Date | string;
+}
+
+export function formatGuestbookDate(date: Date | string): string {
+  const parsed = typeof date === "string" ? new Date(date) : date;
+
+  return parsed
     .toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
@@ -13,7 +22,7 @@ export function formatGuestbookDate(date: Date): string {
     .toUpperCase();
 }
 
-export function wishToGuestbookMessage(wish: WishModel) {
+export function wishToGuestbookMessage(wish: WishForGuestbook) {
   return {
     id: wish.id,
     message: wish.message,
