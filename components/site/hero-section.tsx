@@ -26,6 +26,7 @@ export function HeroSection({
             src={photoUrl}
             alt={honoreeName}
             fill
+            priority
             className="object-cover"
             sizes="(max-width: 768px) 160px, 192px"
           />

@@ -5,7 +5,7 @@ import { SiteNavbar } from "@/components/site/site-navbar";
 import { getApprovedWishes } from "@/lib/queries/wishes";
 import { wishToGuestbookMessage } from "@/lib/wish-display";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function GuestbookPage() {
   const { items, nextCursor } = await getApprovedWishes({ take: 6 });

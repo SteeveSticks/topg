@@ -162,7 +162,8 @@ function ScrollableImageCard({
   zIndex,
   hatSide,
   centered = false,
-}: GalleryImage & { centered?: boolean }) {
+  priority = false,
+}: GalleryImage & { centered?: boolean; priority?: boolean }) {
   const resolvedPosition = centered
     ? getCenteredMobilePosition(zIndex)
     : position;
@@ -176,7 +177,9 @@ function ScrollableImageCard({
             alt={alt}
             width={600}
             height={900}
-            className="w-full h-full object-cover"
+            priority={priority}
+            sizes="(max-width: 768px) 68vw, 36vw"
+            className="h-full w-full object-cover"
           />
         </div>
         <span
@@ -298,6 +301,7 @@ export function ScrollWishesGallery({
                     <ScrollableImageCard
                       key={`${slide.eyebrow}-${imageIndex}`}
                       {...image}
+                      priority={index === 0}
                     />
                   ))}
                 </div>
@@ -307,7 +311,7 @@ export function ScrollWishesGallery({
         </div>
 
         <div className="flex flex-col gap-10 md:hidden">
-          {slides.map((slide) => (
+          {slides.map((slide, slideIndex) => (
             <div
               key={slide.eyebrow}
               className="relative mx-auto h-[800px] w-full max-w-[800px]"
@@ -317,6 +321,7 @@ export function ScrollWishesGallery({
                   key={`${slide.eyebrow}-${imageIndex}`}
                   {...image}
                   centered
+                  priority={slideIndex === 0}
                 />
               ))}
             </div>

@@ -1,5 +1,5 @@
 import { ScrollWishesGallery } from "@/components/site/scroll-wishes-gallery";
-import PaperLines from "@/public/paper-lines-removebg-preview.png";
+import PaperLines from "@/public/paper-lines.webp";
 import Image from "next/image";
 
 interface LatestWishesSectionProps {

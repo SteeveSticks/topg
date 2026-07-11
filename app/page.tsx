@@ -6,23 +6,25 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNavbar } from "@/components/site/site-navbar";
 import { toNextImageSrc } from "@/lib/image-url";
 import { getSite } from "@/lib/queries/site";
-import { getApprovedWishes } from "@/lib/queries/wishes";
+import { getApprovedWishPhotoUrls } from "@/lib/queries/wishes";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+function toIsoString(value: Date | string): string {
+  return typeof value === "string" ? value : value.toISOString();
+}
 
 export default async function Home() {
-  const [site, { items: wishes }] = await Promise.all([
+  const [site, photoUrls] = await Promise.all([
     getSite(),
-    getApprovedWishes({ take: 50 }),
+    getApprovedWishPhotoUrls({ take: 6 }),
   ]);
-
-  const wishImageUrls = wishes
-    .filter((wish) => wish.photoUrl)
-    .map((wish) => toNextImageSrc(wish.photoUrl as string));
 
   if (!site) {
     notFound();
   }
+
+  const wishImageUrls = photoUrls.map((url) => toNextImageSrc(url));
 
   return (
     <div className="min-h-screen bg-base">
@@ -32,7 +34,7 @@ export default async function Home() {
           honoreeName={site.honoreeName}
           photoUrl={toNextImageSrc(site.heroPhotoUrl)}
           subtitle={site.pageCopy}
-          countdownTarget={site.countdownTarget.toISOString()}
+          countdownTarget={toIsoString(site.countdownTarget)}
         />
         <LatestWishesSection imageUrls={wishImageUrls} />
       </main>

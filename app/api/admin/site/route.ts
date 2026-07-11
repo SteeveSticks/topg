@@ -2,6 +2,7 @@ import {
   jsonError,
   zodErrorResponse,
 } from "@/lib/api-response";
+import { revalidatePublicSite } from "@/lib/cache-tags";
 import { prisma } from "@/lib/prisma";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { updateSiteSchema } from "@/lib/schemas/update-site";
@@ -36,6 +37,8 @@ export async function PATCH(request: Request) {
     where: { id: existing.id },
     data: parsed.data,
   });
+
+  revalidatePublicSite();
 
   return Response.json(site);
 }

@@ -1,6 +1,5 @@
-"use client";
-
 import { Cake, Sparkles } from "lucide-react";
+
 import { AddWishForm } from "@/components/site/add-wish-form";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNavbar } from "@/components/site/site-navbar";

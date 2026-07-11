@@ -8,10 +8,11 @@ Chapter 10 — Connect (complete)
 
 ## Current Goal
 
-All public pages wired to real data; next work TBD
+Performance pass complete; optional follow-ups (Cache Components, upload resize, Lighthouse field data)
 
 ## Recently Shipped (unnumbered)
 
+- **Perf ~10× public TTFB** — Removed `force-dynamic` from `/`, `/gallery`, `/memory-lane`, `/guestbook`; ISR `revalidate = 60`; Prisma reads wrapped in `unstable_cache` with tags (`lib/cache-tags.ts`, `lib/queries/*`); admin mutations call `revalidateTag`/`revalidatePath`; home uses `getApprovedWishPhotoUrls({ take: 6 })`; hero `priority`; scroll gallery `sizes` + first-slide priority; paper-lines WebP; AVIF/WebP in `next.config.ts`; navbar server shell + client mobile menu only; `/add-wish` Server Component page; `loading.tsx` skeletons; unused `public/video/*` removed (~9MB). Build shows public routes as `○` static with 1m revalidate.
 - **Guestbook load-more fix** — `formatGuestbookDate` in `lib/wish-display.ts` now accepts `Date | string` (JSON API returns ISO strings); fixes "Could not load older messages" error when paginating via Load Older Messages
 - **Memory Lane real images** — hero background uses DB photos via `getGalleryImages()` (replaces static love-video collage); timeline entries already used `photoUrl` from DB; stable `id` keys on timeline rows
 - **Gallery real images** — `/gallery` renders all DB images (site hero, timeline entries, approved wish photos) via `imageUrl` on each tile; removed 20-tile placeholder padding and slide image fallbacks; `getApprovedWishesWithPhotos()` fetches every approved wish with a photo
@@ -43,6 +44,7 @@ All public pages wired to real data; next work TBD
 
 ## Recently Completed
 
+- **Perf public caching** — Production build clean; `/`, `/gallery`, `/guestbook`, `/memory-lane` prerendered static with 1m revalidate; lint clean on touched files; admin approve/timeline/site mutations invalidate cache tags
 - **10-connect** — Build + lint clean; mock arrays removed from home, memory-lane, guestbook pages; countdown uses `Site.countdownTarget`; Load Older Messages appends real pages and hides when `nextCursor` is null; Add Wish creates `PENDING` row with inline success/error states
 - **09-admin-ui** — Build + targeted lint clean; unauthenticated `/api/admin/*` → 401 JSON; dashboard tabs filter wishes by status with approve/reject/delete + confirm step; timeline CRUD reflects in `GET /api/timeline`; site `PATCH` updates existing row only; logout redirects to `/admin/login`
 - **08-admin** — Build clean; middleware redirects unauthenticated `/admin` to `/admin/login`; login sets `httpOnly` signed cookie; wrong password → 401 with no cookie; logout clears cookie; future admin mutation routes must re-verify session server-side (independent of middleware)
@@ -69,6 +71,7 @@ All public pages wired to real data; next work TBD
 - Admin auth uses HMAC-signed `admin_session` cookie (`SESSION_SECRET`); middleware runs on Edge so token verification in `middleware.ts` uses `lib/admin-session-edge.ts` (Web Crypto), while API routes use Node `crypto` in `lib/admin-session.ts`; Next.js 16 deprecates `middleware.ts` in favour of `proxy.ts` — kept `middleware.ts` per chapter spec
 - Admin UI lives under `app/admin/(dashboard)/` route group (layout excludes login); all admin API handlers call `requireAdminSession()` independently of middleware; admin forms use plain URL text inputs for photos (upload wiring deferred)
 - Public pages import `lib/queries/*` directly in Server Components; client-side pagination (guestbook) is the only public page that fetches `/api/wishes`; `GET /api/wishes` returns `{ items, nextCursor }` not a bare array
+- Public reads use `unstable_cache` + cache tags (`site` / `wishes` / `timeline` / `gallery`) with 60s revalidate; admin mutations call `revalidateTag(..., "max")` + path revalidation via `lib/cache-tags.ts`
 
 ## Session Notes
 

@@ -7,7 +7,7 @@ import { getGalleryImages } from "@/lib/gallery-images";
 import { toNextImageSrc } from "@/lib/image-url";
 import { getTimelineEntries } from "@/lib/queries/timeline";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function MemoryLanePage() {
   const [entries, galleryImages] = await Promise.all([

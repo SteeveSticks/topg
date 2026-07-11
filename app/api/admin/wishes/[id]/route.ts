@@ -2,6 +2,7 @@ import {
   jsonError,
   zodErrorResponse,
 } from "@/lib/api-response";
+import { revalidatePublicWishes } from "@/lib/cache-tags";
 import { prisma } from "@/lib/prisma";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { updateWishStatusSchema } from "@/lib/schemas/update-wish-status";
@@ -43,6 +44,8 @@ export async function PATCH(request: Request, context: RouteContext) {
     data: { status: parsed.data.status },
   });
 
+  revalidatePublicWishes();
+
   return Response.json(wish);
 }
 
@@ -61,6 +64,8 @@ export async function DELETE(_request: Request, context: RouteContext) {
   }
 
   await prisma.wish.delete({ where: { id } });
+
+  revalidatePublicWishes();
 
   return Response.json({ success: true });
 }

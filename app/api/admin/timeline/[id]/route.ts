@@ -2,6 +2,7 @@ import {
   jsonError,
   zodErrorResponse,
 } from "@/lib/api-response";
+import { revalidatePublicTimeline } from "@/lib/cache-tags";
 import { prisma } from "@/lib/prisma";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { updateTimelineEntrySchema } from "@/lib/schemas/timeline-entry";
@@ -47,6 +48,8 @@ export async function PATCH(request: Request, context: RouteContext) {
     data: parsed.data,
   });
 
+  revalidatePublicTimeline();
+
   return Response.json(entry);
 }
 
@@ -65,6 +68,8 @@ export async function DELETE(_request: Request, context: RouteContext) {
   }
 
   await prisma.timelineEntry.delete({ where: { id } });
+
+  revalidatePublicTimeline();
 
   return Response.json({ success: true });
 }

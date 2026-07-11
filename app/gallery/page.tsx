@@ -3,7 +3,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { SiteNavbar } from "@/components/site/site-navbar";
 import { getGalleryImages } from "@/lib/gallery-images";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function GalleryPage() {
   const items = await getGalleryImages();

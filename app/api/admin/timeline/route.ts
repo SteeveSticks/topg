@@ -2,6 +2,7 @@ import {
   jsonError,
   zodErrorResponse,
 } from "@/lib/api-response";
+import { revalidatePublicTimeline } from "@/lib/cache-tags";
 import { prisma } from "@/lib/prisma";
 import { requireAdminSession } from "@/lib/require-admin-session";
 import { timelineEntrySchema } from "@/lib/schemas/timeline-entry";
@@ -29,6 +30,8 @@ export async function POST(request: Request) {
   const entry = await prisma.timelineEntry.create({
     data: parsed.data,
   });
+
+  revalidatePublicTimeline();
 
   return Response.json(entry, { status: 201 });
 }
