@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
+import Link from "next/link";
 import { ArrowRight, PartyPopper } from "lucide-react";
 import slide1 from "@/public/slide1.jpg";
 import slide2 from "@/public/slide2.jpg";
@@ -210,13 +211,13 @@ function SlideText({ slide }: { slide: GallerySlide }) {
         {slide.body}
       </p>
 
-      <button
-        type="button"
+      <Link
+        href="/gallery"
         className="mb-10 inline-flex w-fit items-center gap-2 border border-copy-primary px-5 py-2 text-sm font-semibold text-copy-primary transition-colors hover:bg-subtle md:mb-16 md:px-6 md:py-2.5"
       >
         MEMORY LANE
         <ArrowRight className="h-4 w-4" strokeWidth={2} />
-      </button>
+      </Link>
 
       <div className="border-t border-surface-border pt-6 md:pt-10">
         <p className="mb-1.5 text-sm font-medium text-copy-faint md:mb-2">
@@ -342,13 +343,13 @@ export function ScrollWishesGallery({
             className="hidden md:block h-16 relative top-10 left-0"
           />
         </div>
-        <button
-          type="button"
+        <Link
+          href="/gallery"
           className="mb-16 inline-flex w-fit items-center gap-2 border border-copy-primary px-6 py-2.5 text-sm font-semibold text-copy-primary transition-colors hover:bg-subtle"
         >
           MEMORY LANE
           <ArrowRight className="h-4 w-4" strokeWidth={2} />
-        </button>
+        </Link>
       </div>
     </section>
   );

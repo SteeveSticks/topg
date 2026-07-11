@@ -3,7 +3,7 @@ pid: 28888
 cwd: "C:\Users\DELL\Documents\projects\lazy-birthday\my-app"
 command: "npm run build"
 started_at: 2026-07-08T18:29:45.077Z
-running_for_ms: 455013   
+running_for_ms: 88686158 
 ---
 Loaded Prisma config from prisma.config.ts.
 
@@ -60,3 +60,9 @@ Route (app)
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 
+
+---
+exit_code: -1
+elapsed_ms: 88686158
+ended_at: 2026-07-09T19:08:02.922Z
+---

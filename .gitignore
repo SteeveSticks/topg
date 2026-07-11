@@ -37,6 +37,7 @@ yarn-error.log*
 # local editor/context and terminal state
 /context
 /terminals
+/mcps
 
 # vercel
 .vercel

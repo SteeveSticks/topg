@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "discordapp.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.zendsolv.com",
+      },
+      {
+        protocol: "https",
         hostname: "media.licdn.com",
       },
       {

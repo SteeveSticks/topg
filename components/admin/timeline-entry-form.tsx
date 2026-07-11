@@ -74,6 +74,7 @@ export function TimelineEntryForm({
         </label>
         <Input
           id="timeline-title"
+          className="text-black"
           value={values.title}
           onChange={(event) => updateField("title", event.target.value)}
           required
@@ -94,7 +95,7 @@ export function TimelineEntryForm({
           onChange={(event) => updateField("description", event.target.value)}
           required
           disabled={loading}
-          className="min-h-24 rounded-2xl"
+          className="min-h-24 rounded-2xl text-black"
         />
       </div>
 
@@ -109,6 +110,7 @@ export function TimelineEntryForm({
           id="timeline-photo-url"
           type="url"
           value={values.photoUrl}
+          className="text-black"
           onChange={(event) => updateField("photoUrl", event.target.value)}
           placeholder="https://"
           required
@@ -133,6 +135,7 @@ export function TimelineEntryForm({
             updateField("sortOrder", Number(event.target.value))
           }
           required
+          className="text-black"
           disabled={loading}
         />
       </div>
